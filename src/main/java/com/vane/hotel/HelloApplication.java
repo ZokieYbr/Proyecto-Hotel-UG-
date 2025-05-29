@@ -31,7 +31,7 @@ public class HelloApplication extends Application {
             });
         }
 
-        Button btnReservaciones = (Button) menuScene.lookup("#btnReservacionessss");
+        Button btnReservaciones = (Button) menuScene.lookup("#btnReservaciones");
         if (btnReservaciones != null) {
             btnReservaciones.setOnAction(event -> {
                 try {
