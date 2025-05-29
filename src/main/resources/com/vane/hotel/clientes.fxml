@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+
+<AnchorPane minHeight="-Infinity" minWidth="-Infinity" prefHeight="500.0" prefWidth="900.0" style="-fx-background-color: linear-gradient(to bottom right, #a18cd1, #fbc2eb);" xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.vane.hotel.vista.VCliente">
+   <children>
+      <Button fx:id="btnAtras" layoutX="30.0" layoutY="30.0" prefHeight="35.0" prefWidth="100.0" style="-fx-background-radius: 20; -fx-background-color: #a18cd1; -fx-text-fill: white; -fx-font-size: 16px;" text="Atrás" onAction="#volverMenu" />
+      <Label alignment="CENTER" layoutX="214.0" layoutY="26.0" minHeight="-Infinity" minWidth="-Infinity" prefHeight="47.0" prefWidth="471.0" style="-fx-font-size: 32px; -fx-font-weight: bold; -fx-text-fill: #6a0572; -fx-alignment: center;" text="Gestión de Clientes" />
+      <!-- Formulario -->
+      <Label alignment="CENTER_RIGHT" layoutX="524.0" layoutY="118.0" minHeight="-Infinity" minWidth="-Infinity" prefHeight="27.0" prefWidth="100.0" style="-fx-font-size: 16px; -fx-text-fill: #6a0572;" text="Nombre(s):" />
+      <TextField fx:id="txtNombre" alignment="CENTER" layoutX="644.0" layoutY="113.0" minHeight="-Infinity" minWidth="-Infinity" prefHeight="30.0" prefWidth="230.0" style="-fx-font-size: 18px; -fx-background-color: #e0c3fc; -fx-text-fill: #6a0572;" />
+      <Label alignment="CENTER_RIGHT" layoutX="524.0" layoutY="166.0" minHeight="-Infinity" minWidth="-Infinity" prefHeight="27.0" prefWidth="100.0" style="-fx-font-size: 16px; -fx-text-fill: #6a0572;" text="Apellidos:" />
+      <TextField fx:id="txtApellido" alignment="CENTER" layoutX="644.0" layoutY="161.0" minHeight="-Infinity" minWidth="-Infinity" prefHeight="30.0" prefWidth="230.0" style="-fx-font-size: 18px; -fx-background-color: #e0c3fc; -fx-text-fill: #6a0572;" />
+      <Label alignment="CENTER_RIGHT" layoutX="524.0" layoutY="211.0" minHeight="-Infinity" minWidth="-Infinity" prefHeight="27.0" prefWidth="100.0" style="-fx-font-size: 16px; -fx-text-fill: #6a0572;" text="Teléfono:" />
+      <TextField fx:id="txtTelefono" alignment="CENTER" layoutX="644.0" layoutY="206.0" minHeight="-Infinity" minWidth="-Infinity" prefHeight="30.0" prefWidth="230.0" promptText="A 10 dígitos" style="-fx-font-size: 18px; -fx-background-color: #e0c3fc; -fx-text-fill: #6a0572;" />
+      <Label alignment="CENTER_RIGHT" layoutX="524.0" layoutY="255.0" minHeight="-Infinity" minWidth="-Infinity" prefHeight="27.0" prefWidth="100.0" style="-fx-font-size: 16px; -fx-text-fill: #6a0572;" text="Correo:" />
+      <TextField fx:id="txtEmail" alignment="CENTER" layoutX="644.0" layoutY="250.0" minHeight="-Infinity" minWidth="-Infinity" prefHeight="30.0" prefWidth="230.0" style="-fx-font-size: 18px; -fx-background-color: #e0c3fc; -fx-text-fill: #6a0572;" />
+      <!-- Botones CRUD -->
+      <Button fx:id="btnAgregar" layoutX="544.0" layoutY="337.0" minHeight="-Infinity" minWidth="-Infinity" onAction="#registrarCliente" prefHeight="35.0" prefWidth="100.0" style="-fx-background-radius: 20; -fx-background-color: #a18cd1; -fx-text-fill: white; -fx-font-size: 16px;" text="Agregar" />
+      <Button fx:id="btnActualizar" layoutX="659.0" layoutY="337.0" minHeight="-Infinity" minWidth="-Infinity" onAction="#actualizarCliente" prefHeight="35.0" prefWidth="100.0" style="-fx-background-radius: 20; -fx-background-color: #a18cd1; -fx-text-fill: white; -fx-font-size: 16px;" text="Actualizar" />
+      <Button fx:id="btnEliminar" layoutX="774.0" layoutY="337.0" minHeight="-Infinity" minWidth="-Infinity" onAction="#eliminarCliente" prefHeight="35.0" prefWidth="100.0" style="-fx-background-radius: 20; -fx-background-color: #a18cd1; -fx-text-fill: white; -fx-font-size: 16px;" text="Eliminar" />
+      <Button fx:id="btnLimpiar" layoutX="659.0" layoutY="385.0" minHeight="-Infinity" minWidth="-Infinity" onAction="#limpiarCampos" prefHeight="35.0" prefWidth="100.0" style="-fx-background-radius: 20; -fx-background-color: #e0c3fc; -fx-text-fill: #6a0572; -fx-font-size: 16px;" text="Limpiar" />
+      <!-- Tabla de Clientes -->
+      <TableView fx:id="tblClientes" layoutX="21.0" layoutY="100.0" minHeight="-Infinity" minWidth="-Infinity" prefHeight="370.0" prefWidth="487.0" style="-fx-background-color: #f8e1ff; -fx-border-color: #a18cd1; -fx-border-width: 2;">
+         <columns>
+            <TableColumn fx:id="colId" prefWidth="38.00000190734863" text="ID" />
+            <TableColumn fx:id="colNombre" prefWidth="121.39995574951172" text="Nombre" />
+            <TableColumn fx:id="colApellido" prefWidth="110.20001220703125" text="Apellidos" />
+            <TableColumn fx:id="colTelefono" prefWidth="86.39996337890625" text="Teléfono" />
+            <TableColumn fx:id="colEmail" prefWidth="129.5999755859375" text="Correo" />
+         </columns>
+      </TableView>
+   </children>
+</AnchorPane>

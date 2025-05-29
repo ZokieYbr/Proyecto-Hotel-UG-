@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.DatePicker?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+
+<AnchorPane minHeight="-Infinity" minWidth="-Infinity" prefHeight="500.0" prefWidth="900.0" style="-fx-background-color: linear-gradient(to bottom right, #a18cd1, #fbc2eb);" xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.vane.hotel.vista.VReservacion">
+    <children>
+        <Button fx:id="btnAtras" layoutX="30.0" layoutY="30.0" prefHeight="35.0" prefWidth="100.0" style="-fx-background-radius: 20; -fx-background-color: #a18cd1; -fx-text-fill: white; -fx-font-size: 16px;" text="Atrás" onAction="#volverMenu" />
+        <Label alignment="CENTER" layoutX="57.0" layoutY="29.0" prefHeight="47.0" prefWidth="786.0" style="-fx-font-size: 32px; -fx-font-weight: bold; -fx-text-fill: #6a0572; -fx-alignment: center;" text="Gestión de Reservaciones" />
+        <Label alignment="CENTER_RIGHT" layoutX="520.0" layoutY="113.0" minHeight="-Infinity" minWidth="-Infinity" prefHeight="27.0" prefWidth="100.0" style="-fx-font-size: 16px; -fx-text-fill: #6a0572;" text="Cliente ID:" />
+        <TextField fx:id="clienteIdField" alignment="CENTER" layoutX="640.0" layoutY="108.0" minHeight="-Infinity" minWidth="-Infinity" prefHeight="30.0" prefWidth="230.0" style="-fx-font-size: 18px; -fx-background-color: #e0c3fc; -fx-text-fill: #6a0572;" />
+        <Label alignment="CENTER_RIGHT" layoutX="520.0" layoutY="156.0" minHeight="-Infinity" minWidth="-Infinity" prefHeight="27.0" prefWidth="100.0" style="-fx-font-size: 16px; -fx-text-fill: #6a0572;" text="Habitación ID:" />
+        <TextField fx:id="habitacionIdField" alignment="CENTER" layoutX="640.0" layoutY="151.0" minHeight="-Infinity" minWidth="-Infinity" prefHeight="30.0" prefWidth="230.0" style="-fx-font-size: 18px; -fx-background-color: #e0c3fc; -fx-text-fill: #6a0572;" />
+        <Label alignment="CENTER_RIGHT" layoutX="520.0" layoutY="199.0" minHeight="-Infinity" minWidth="-Infinity" prefHeight="27.0" prefWidth="100.0" style="-fx-font-size: 16px; -fx-text-fill: #6a0572;" text="Fecha Entrada:" />
+        <DatePicker fx:id="fechaEntradaPicker" layoutX="640.0" layoutY="194.0" minHeight="-Infinity" minWidth="-Infinity" prefHeight="30.0" prefWidth="230.0" style="-fx-font-size: 18px; -fx-background-color: #e0c3fc; -fx-text-fill: #6a0572;" />
+        <Label alignment="CENTER_RIGHT" layoutX="520.0" layoutY="243.0" minHeight="-Infinity" minWidth="-Infinity" prefHeight="27.0" prefWidth="100.0" style="-fx-font-size: 16px; -fx-text-fill: #6a0572;" text="Fecha Salida:" />
+        <DatePicker fx:id="fechaSalidaPicker" layoutX="640.0" layoutY="238.0" minHeight="-Infinity" minWidth="-Infinity" prefHeight="30.0" prefWidth="230.0" style="-fx-font-size: 18px; -fx-background-color: #e0c3fc; -fx-text-fill: #6a0572;" />
+        <Label alignment="CENTER_RIGHT" layoutX="520.0" layoutY="288.0" minHeight="-Infinity" minWidth="-Infinity" prefHeight="27.0" prefWidth="100.0" style="-fx-font-size: 16px; -fx-text-fill: #6a0572;" text="Estado:" />
+        <ComboBox fx:id="estadoCombo" layoutX="640.0" layoutY="283.0" minHeight="-Infinity" minWidth="-Infinity" prefHeight="30.0" prefWidth="230.0" style="-fx-font-size: 18px; -fx-background-color: #e0c3fc; -fx-text-fill: #6a0572;" />
+        <!-- Botones CRUD -->
+        <Button fx:id="btnAgregar" layoutX="547.0" layoutY="345.0" minHeight="-Infinity" minWidth="-Infinity" onAction="#agregarReservacion" prefHeight="35.0" prefWidth="100.0" style="-fx-background-radius: 20; -fx-background-color: #a18cd1; -fx-text-fill: white; -fx-font-size: 16px;" text="Agregar" />
+        <Button fx:id="btnActualizar" layoutX="666.0" layoutY="345.0" minHeight="-Infinity" minWidth="-Infinity" onAction="#actualizarReservacion" prefHeight="35.0" prefWidth="100.0" style="-fx-background-radius: 20; -fx-background-color: #a18cd1; -fx-text-fill: white; -fx-font-size: 16px;" text="Actualizar" />
+        <Button fx:id="btnEliminar" layoutX="786.0" layoutY="345.0" minHeight="-Infinity" minWidth="-Infinity" onAction="#eliminarReservacion" prefHeight="35.0" prefWidth="100.0" style="-fx-background-radius: 20; -fx-background-color: #a18cd1; -fx-text-fill: white; -fx-font-size: 16px;" text="Eliminar" />
+        <Button fx:id="btnLimpiar" layoutX="666.0" layoutY="397.0" minHeight="-Infinity" minWidth="-Infinity" onAction="#limpiarCampos" prefHeight="35.0" prefWidth="100.0" style="-fx-background-radius: 20; -fx-background-color: #e0c3fc; -fx-text-fill: #6a0572; -fx-font-size: 16px;" text="Limpiar" />
+        <!-- Tabla de Reservaciones -->
+        <TableView fx:id="tablaReservaciones" layoutX="50.0" layoutY="100.0" prefHeight="370.0" prefWidth="458.0" style="-fx-background-color: #f8e1ff; -fx-border-color: #a18cd1; -fx-border-width: 2;">
+            <columns>
+                <TableColumn fx:id="colId" prefWidth="32.0" text="ID" />
+                <TableColumn fx:id="colClienteId" prefWidth="58.0" text="Cliente" />
+                <TableColumn fx:id="colHabitacionId" prefWidth="75.0" text="Habitación" />
+                <TableColumn fx:id="colFechaEntrada" prefWidth="95.0" text="Entrada" />
+                <TableColumn fx:id="colFechaSalida" prefWidth="94.0" text="Salida" />
+                <TableColumn fx:id="colEstado" prefWidth="101.0" text="Estado" />
+            </columns>
+        </TableView>
+    </children>
+</AnchorPane>
