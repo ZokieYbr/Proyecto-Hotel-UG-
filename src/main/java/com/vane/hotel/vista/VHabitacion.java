@@ -4,9 +4,6 @@ import com.vane.hotel.controlador.CHabitacion;
 import com.vane.hotel.modelo.Habitacion;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
-import javafx.scene.Parent;
-import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
@@ -147,10 +144,9 @@ public class VHabitacion {
     @FXML
     private void volverMenu() {
         try {
-            FXMLLoader loader = new FXMLLoader(com.vane.hotel.HelloApplication.class.getResource("menu.fxml"));
-            Parent root = loader.load();
             Stage stage = (Stage) btnAtras.getScene().getWindow();
-            stage.setScene(new Scene(root, 900, 500));
+            stage.close();
+            new com.vane.hotel.HelloApplication().start(new Stage());
         } catch (Exception e) {
             mostrarAlerta("Error", "No se pudo volver al menú", Alert.AlertType.ERROR);
         }

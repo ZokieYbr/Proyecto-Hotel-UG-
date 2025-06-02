@@ -4,9 +4,6 @@ import com.vane.hotel.controlador.CReservacion;
 import com.vane.hotel.modelo.Reservacion;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
-import javafx.scene.Parent;
-import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
@@ -157,9 +154,7 @@ public class VReservacion {
     private void volverMenu() {
         try {
             Stage stage = (Stage) btnAtras.getScene().getWindow();
-            // Cerrar la ventana actual
             stage.close();
-            // Volver a lanzar la aplicación principal
             new com.vane.hotel.HelloApplication().start(new Stage());
         } catch (Exception e) {
             mostrarAlerta("Error", "No se pudo volver al menú", Alert.AlertType.ERROR);

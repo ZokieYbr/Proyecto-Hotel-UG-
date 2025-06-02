@@ -5,9 +5,6 @@ import com.vane.hotel.modelo.Cliente;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
-import javafx.scene.Parent;
-import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
@@ -149,22 +146,22 @@ public class VCliente {
         clienteSeleccionadoId = -1;
     }
 
-    private void mostrarAlerta(String titulo, String mensaje, Alert.AlertType tipo) {
-        Alert alerta = new Alert(tipo);
-        alerta.setTitle(titulo);
-        alerta.setContentText(mensaje);
-        alerta.showAndWait();
-    }
-
     @FXML
     private void volverMenu() {
         try {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/vane/hotel/menu.fxml"));
-            Parent root = loader.load();
             Stage stage = (Stage) btnAtras.getScene().getWindow();
-            stage.setScene(new Scene(root));
+            stage.close();
+            new com.vane.hotel.HelloApplication().start(new Stage());
         } catch (Exception e) {
             mostrarAlerta("Error", "No se pudo volver al menú", Alert.AlertType.ERROR);
         }
+    }
+
+    private void mostrarAlerta(String titulo, String mensaje, Alert.AlertType tipo) {
+        Alert alerta = new Alert(tipo);
+        alerta.setTitle(titulo);
+        alerta.setHeaderText(null);
+        alerta.setContentText(mensaje);
+        alerta.showAndWait();
     }
 }
