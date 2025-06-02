@@ -41,3 +41,4 @@ public class CMenu {
         btnReservaciones.setText(i18n.get("boton.reservaciones"));
     }
 }
+
