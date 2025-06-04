@@ -28,7 +28,7 @@ public class CMenu {
             } else if ("Inglés".equals(seleccion)) {
                 Config.set("idioma", "en");
             }
-            i18n.reload(); // Debes agregar este método para recargar el ResourceBundle
+            i18n.reload();
             actualizarTextos();
         });
         actualizarTextos();

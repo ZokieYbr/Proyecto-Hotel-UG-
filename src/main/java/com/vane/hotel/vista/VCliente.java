@@ -2,6 +2,7 @@ package com.vane.hotel.vista;
 
 import com.vane.hotel.controlador.CCliente;
 import com.vane.hotel.modelo.Cliente;
+import com.vane.hotel.i18n;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -35,6 +36,26 @@ public class VCliente {
     private TableColumn<Cliente, String> colEmail;
     @FXML
     private Button btnAtras;
+    @FXML 
+    private Button btnAgregar;
+    @FXML 
+    private Button btnActualizar;
+    @FXML 
+    private Button btnEliminar;
+    @FXML 
+    private Button btnLimpiar;
+    @FXML 
+    private Label lblNombre;
+    @FXML 
+    private Label lblApellido;
+    @FXML 
+    private Label lblTelefono;
+    @FXML 
+    private Label lblEmail;
+    @FXML 
+    private Label lblIdentificacionOficial;
+    @FXML 
+    private Label ttlClientes;
 
     private final CCliente controlador = new CCliente();
     private int clienteSeleccionadoId = -1;
@@ -49,13 +70,13 @@ public class VCliente {
         cargarClientes();
 
         tblClientes.setOnMouseClicked(this::seleccionarCliente);
+        actualizarTextos();
     }
 
     private void cargarClientes() {
         ObservableList<Cliente> clientes = controlador.getClientes();
         tblClientes.setItems(clientes);
     }
-// Agrega estos métodos en VCliente.java
 
     private boolean validarCampos() {
         String nombre = txtNombre.getText();
@@ -64,69 +85,67 @@ public class VCliente {
         String email = txtEmail.getText();
 
         if (!nombre.matches("^[A-Za-zÁÉÍÓÚáéíóúñÑ ]{2,30}$")) {
-            mostrarAlerta("Error", "Nombre inválido. Solo letras y espacios (2-30 caracteres).", Alert.AlertType.ERROR);
+            mostrarAlerta("error.titulo", "error.nombre", Alert.AlertType.ERROR);
             return false;
         }
         if (!apellido.matches("^[A-Za-zÁÉÍÓÚáéíóúñÑ ]{2,30}$")) {
-            mostrarAlerta("Error", "Apellido inválido. Solo letras y espacios (2-30 caracteres).", Alert.AlertType.ERROR);
+            mostrarAlerta("error.titulo", "error.apellido", Alert.AlertType.ERROR);
             return false;
         }
         if (!telefono.matches("^\\d{10}$")) {
-            mostrarAlerta("Error", "Teléfono inválido. Deben ser 10 dígitos.", Alert.AlertType.ERROR);
+            mostrarAlerta("error.titulo", "error.telefono", Alert.AlertType.ERROR);
             return false;
         }
         if (!email.matches("^[\\w.-]+@[\\w.-]+\\.[A-Za-z]{2,}$")) {
-            mostrarAlerta("Error", "Correo electrónico inválido.", Alert.AlertType.ERROR);
+            mostrarAlerta("error.titulo", "error.email", Alert.AlertType.ERROR);
             return false;
         }
         return true;
     }
-
-// Modifica registrarCliente y actualizarCliente para usar la validación
 
     @FXML
     private void registrarCliente(ActionEvent event) {
         if (!validarCampos()) return;
         Cliente cliente = new Cliente(0, txtNombre.getText(), txtApellido.getText(), txtTelefono.getText(), txtEmail.getText(), txtIdentificacionOficial.getText());
         if (controlador.registrarCliente(cliente)) {
-            mostrarAlerta("Éxito", "Cliente registrado", Alert.AlertType.INFORMATION);
+            mostrarAlerta("exito.titulo", "exito.registro", Alert.AlertType.INFORMATION);
             cargarClientes();
             limpiarCampos();
         } else {
-            mostrarAlerta("Error", "No se pudo registrar el cliente", Alert.AlertType.ERROR);
+            mostrarAlerta("error.titulo", "error.registro", Alert.AlertType.ERROR);
         }
     }
 
     @FXML
     private void actualizarCliente(ActionEvent event) {
         if (clienteSeleccionadoId == -1) {
-            mostrarAlerta("Atención", "Seleccione un cliente para actualizar", Alert.AlertType.WARNING);
+            mostrarAlerta("atencion.titulo", "atencion.seleccionar", Alert.AlertType.WARNING);
             return;
         }
         if (!validarCampos()) return;
         Cliente cliente = new Cliente(clienteSeleccionadoId, txtNombre.getText(), txtApellido.getText(), txtTelefono.getText(), txtEmail.getText(), txtIdentificacionOficial.getText());
         if (controlador.actualizarCliente(cliente)) {
-            mostrarAlerta("Éxito", "Cliente actualizado", Alert.AlertType.INFORMATION);
+            mostrarAlerta("exito.titulo", "exito.actualizacion", Alert.AlertType.INFORMATION);
             cargarClientes();
             limpiarCampos();
         } else {
-            mostrarAlerta("Error", "No se pudo actualizar el cliente", Alert.AlertType.ERROR);
+            mostrarAlerta("error.titulo", "error.actualizacion", Alert.AlertType.ERROR);
         }
     }
 
     @FXML
     private void eliminarCliente(ActionEvent event) {
         if (clienteSeleccionadoId == -1) {
-            mostrarAlerta("Atención", "Seleccione un cliente para eliminar", Alert.AlertType.WARNING);
+            mostrarAlerta("atencion.titulo", "atencion.seleccionar", Alert.AlertType.WARNING);
             return;
         }
 
         if (controlador.eliminarCliente(clienteSeleccionadoId)) {
-            mostrarAlerta("Éxito", "Cliente eliminado", Alert.AlertType.INFORMATION);
+            mostrarAlerta("exito.titulo", "exito.eliminacion", Alert.AlertType.INFORMATION);
             cargarClientes();
             limpiarCampos();
         } else {
-            mostrarAlerta("Error", "No se pudo eliminar el cliente", Alert.AlertType.ERROR);
+            mostrarAlerta("error.titulo", "error.eliminacion", Alert.AlertType.ERROR);
         }
     }
 
@@ -159,15 +178,35 @@ public class VCliente {
             stage.close();
             new com.vane.hotel.HelloApplication().start(new Stage());
         } catch (Exception e) {
-            mostrarAlerta("Error", "No se pudo volver al menú", Alert.AlertType.ERROR);
+            mostrarAlerta("error.titulo", "error.menu", Alert.AlertType.ERROR);
         }
     }
 
-    private void mostrarAlerta(String titulo, String mensaje, Alert.AlertType tipo) {
+    private void mostrarAlerta(String claveTitulo, String claveMensaje, Alert.AlertType tipo) {
         Alert alerta = new Alert(tipo);
-        alerta.setTitle(titulo);
+        alerta.setTitle(i18n.get(claveTitulo));
         alerta.setHeaderText(null);
-        alerta.setContentText(mensaje);
+        alerta.setContentText(i18n.get(claveMensaje));
         alerta.showAndWait();
+    }
+
+    private void actualizarTextos() {
+        ttlClientes.setText(i18n.get("titulo.clientes"));
+        
+        btnAtras.setText(i18n.get("boton.atras"));
+        btnAgregar.setText(i18n.get("boton.agregar"));
+        btnActualizar.setText(i18n.get("boton.actualizar"));
+        btnEliminar.setText(i18n.get("boton.eliminar"));
+        btnLimpiar.setText(i18n.get("boton.limpiar"));
+
+        lblNombre.setText(i18n.get("label.nombre"));
+        lblApellido.setText(i18n.get("label.apellido"));
+        lblTelefono.setText(i18n.get("label.telefono"));
+        lblEmail.setText(i18n.get("label.email"));
+
+        colNombre.setText(i18n.get("columna.nombre"));
+        colApellido.setText(i18n.get("columna.apellido"));
+        colTelefono.setText(i18n.get("columna.telefono"));
+        colEmail.setText(i18n.get("columna.email"));
     }
 }

@@ -5,6 +5,7 @@ import com.vane.hotel.controlador.CHabitacion;
 import com.vane.hotel.modelo.Reservacion;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
+import com.vane.hotel.i18n;
 import javafx.scene.control.*;
 import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
@@ -27,6 +28,16 @@ public class VReservacion {
     private TableColumn<Reservacion, String> colFechaEntrada, colFechaSalida, colEstado;
     @FXML
     private Button btnAtras;
+    @FXML private Button btnAgregar;
+    @FXML private Button btnActualizar;
+    @FXML private Button btnEliminar;
+    @FXML private Button btnLimpiar;
+    @FXML private Label lblClienteId;
+    @FXML private Label lblHabitacionId;
+    @FXML private Label lblFechaEntrada;
+    @FXML private Label lblFechaSalida;
+    @FXML private Label lblEstadoCombo;
+    @FXML private Label ttlReservaciones;
 
     private final CReservacion controlador = new CReservacion();
     private final CHabitacion controladorHabitacion = new CHabitacion();
@@ -44,6 +55,7 @@ public class VReservacion {
         cargarReservaciones();
 
         tablaReservaciones.setOnMouseClicked(this::seleccionarReservacion);
+        actualizarTextos();
     }
 
     private void cargarReservaciones() {
@@ -187,5 +199,26 @@ public class VReservacion {
         alerta.setHeaderText(null);
         alerta.setContentText(mensaje);
         alerta.showAndWait();
+    }
+
+    private void actualizarTextos() {
+        ttlReservaciones.setText(i18n.get("titulo.reservaciones"));
+        
+        btnAtras.setText(i18n.get("boton.atras"));
+        btnAgregar.setText(i18n.get("boton.agregar"));
+        btnActualizar.setText(i18n.get("boton.actualizar"));
+        btnEliminar.setText(i18n.get("boton.eliminar"));
+        btnLimpiar.setText(i18n.get("boton.limpiar"));
+
+        lblClienteId.setText(i18n.get("label.clienteId"));
+        lblHabitacionId.setText(i18n.get("label.habitacionId"));
+        lblFechaEntrada.setText(i18n.get("label.fechaEntrada"));
+        lblFechaSalida.setText(i18n.get("label.fechaSalida"));
+        lblEstadoCombo.setText(i18n.get("label.estadoCombo"));
+
+        colClienteId.setText(i18n.get("columna.clienteId"));
+        colHabitacionId.setText(i18n.get("columna.habitacionId"));
+        colFechaEntrada.setText(i18n.get("columna.fechaEntrada"));
+        colFechaSalida.setText(i18n.get("columna.fechaSalida"));
     }
 }

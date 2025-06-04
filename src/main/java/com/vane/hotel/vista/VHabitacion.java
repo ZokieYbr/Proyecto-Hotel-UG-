@@ -4,6 +4,7 @@ import com.vane.hotel.controlador.CHabitacion;
 import com.vane.hotel.modelo.Habitacion;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
+import com.vane.hotel.i18n;
 import javafx.scene.control.*;
 import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
@@ -17,6 +18,15 @@ public class VHabitacion {
     @FXML private TableColumn<Habitacion, String> colTipo, colEstado;
     @FXML private TableColumn<Habitacion, Double> colprecio_noche;
     @FXML private Button btnAtras;
+    @FXML private Button btnAgregar;
+    @FXML private Button btnActualizar;
+    @FXML private Button btnEliminar;
+    @FXML private Button btnLimpiar;
+    @FXML private Label lblNumero;
+    @FXML private Label lblTipo;
+    @FXML private Label lblPrecio;
+    @FXML private Label lblEstado;
+    @FXML private Label ttlHabitaciones;
 
     private final CHabitacion controlador = new CHabitacion();
     private int habitacionSeleccionadaId = -1;
@@ -33,6 +43,7 @@ public class VHabitacion {
         cargarHabitaciones();
 
         tablaHabitaciones.setOnMouseClicked(this::seleccionarHabitacion);
+        actualizarTextos();
     }
 
     private void cargarHabitaciones() {
@@ -158,5 +169,26 @@ public class VHabitacion {
         alerta.setHeaderText(null);
         alerta.setContentText(mensaje);
         alerta.showAndWait();
+    }
+
+    private void actualizarTextos() {
+        ttlHabitaciones.setText(i18n.get("titulo.habitaciones"));
+        
+        btnAtras.setText(i18n.get("boton.atras"));
+        btnAgregar.setText(i18n.get("boton.agregar"));
+        btnActualizar.setText(i18n.get("boton.actualizar"));
+        btnEliminar.setText(i18n.get("boton.eliminar"));
+        btnLimpiar.setText(i18n.get("boton.limpiar"));
+
+        lblNumero.setText(i18n.get("label.numero"));
+        lblTipo.setText(i18n.get("label.tipo"));
+        lblPrecio.setText(i18n.get("label.precio"));
+        lblEstado.setText(i18n.get("label.estado"));
+
+        colNumero.setText(i18n.get("columna.numero"));
+        colTipo.setText(i18n.get("columna.tipo"));
+        colprecio_noche.setText(i18n.get("columna.precio"));
+        colEstado.setText(i18n.get("columna.estado"));
+        
     }
 }

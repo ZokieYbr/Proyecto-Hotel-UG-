@@ -8,14 +8,14 @@
 
 <Pane fx:id="rootPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="500.0" prefWidth="900.0" style="-fx-background-color: linear-gradient(to bottom right, #a18cd1, #fbc2eb);" xmlns="http://javafx.com/javafx/17.0.12" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.vane.hotel.controlador.CMenu">
    <children>
-      <Text fx:id="txtTitulo" layoutX="48.0" layoutY="101.0" strokeType="OUTSIDE" strokeWidth="0.0" style="-fx-fill: #6a0572;" text="Hotel 'Alterno'" textAlignment="CENTER" wrappingWidth="804.9999923706055">
+      <Text fx:id="txtTitulo" layoutX="48.0" layoutY="101.0" strokeType="OUTSIDE" strokeWidth="0.0" style="-fx-fill: #6a0572;" textAlignment="CENTER" wrappingWidth="804.9999923706055">
          <font>
             <Font name="Century Gothic Bold" size="36.0" />
          </font>
       </Text>
-      <Button fx:id="btnHabitaciones" layoutX="367.0" layoutY="170.0" mnemonicParsing="false" prefHeight="40.0" prefWidth="166.0" style="-fx-background-radius: 20; -fx-background-color: #a18cd1; -fx-text-fill: white; -fx-font-size: 18px; -fx-font-family: 'Segoe UI';" text="Habitaciones" />
-      <Button fx:id="btnClientes" layoutX="367.0" layoutY="230.0" mnemonicParsing="false" prefHeight="40.0" prefWidth="166.0" style="-fx-background-radius: 20; -fx-background-color: #a18cd1; -fx-text-fill: white; -fx-font-size: 18px; -fx-font-family: 'Segoe UI';" text="Clientes" />
-      <Button fx:id="btnReservaciones" layoutX="367.0" layoutY="290.0" mnemonicParsing="false" prefHeight="40.0" prefWidth="166.0" style="-fx-background-radius: 20; -fx-background-color: #a18cd1; -fx-text-fill: white; -fx-font-size: 18px; -fx-font-family: 'Segoe UI';" text="Reservaciones" />
+      <Button fx:id="btnHabitaciones" layoutX="367.0" layoutY="170.0" mnemonicParsing="false" prefHeight="40.0" prefWidth="166.0" style="-fx-background-radius: 20; -fx-background-color: #a18cd1; -fx-text-fill: white; -fx-font-size: 18px; -fx-font-family: 'Segoe UI';"  />
+      <Button fx:id="btnClientes" layoutX="367.0" layoutY="230.0" mnemonicParsing="false" prefHeight="40.0" prefWidth="166.0" style="-fx-background-radius: 20; -fx-background-color: #a18cd1; -fx-text-fill: white; -fx-font-size: 18px; -fx-font-family: 'Segoe UI';"  />
+      <Button fx:id="btnReservaciones" layoutX="367.0" layoutY="290.0" mnemonicParsing="false" prefHeight="40.0" prefWidth="166.0" style="-fx-background-radius: 20; -fx-background-color: #a18cd1; -fx-text-fill: white; -fx-font-size: 18px; -fx-font-family: 'Segoe UI';"  />
       <ComboBox fx:id="comboIdioma" layoutX="770.0" layoutY="440.0" prefHeight="30.0" prefWidth="100.0" promptText="Idioma" style="-fx-font-size: 14px; -fx-background-color: #e0c3fc;">
          <items>
             <FXCollections fx:factory="observableArrayList">
