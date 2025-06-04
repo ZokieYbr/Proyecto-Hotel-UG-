@@ -58,6 +58,20 @@ public class HelloApplication extends Application {
                 }
             });
         }
+
+        Button btnPrediccion = (Button) menuScene.lookup("#btnPrediccion");
+        if (btnPrediccion != null) {
+            btnPrediccion.setOnAction(event -> {
+                try {
+                    FXMLLoader prediccionLoader = new FXMLLoader(HelloApplication.class.getResource("prediccion.fxml"));
+                    Parent prediccionRoot = prediccionLoader.load();
+                    Scene prediccionScene = new Scene(prediccionRoot, 900, 500);
+                    stage.setScene(prediccionScene);
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+            });
+        }
     }
 
 
@@ -65,3 +79,4 @@ public class HelloApplication extends Application {
         launch();
     }
 }
+
