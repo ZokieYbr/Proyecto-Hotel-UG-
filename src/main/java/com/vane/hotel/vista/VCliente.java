@@ -20,6 +20,8 @@ public class VCliente {
     @FXML
     private TextField txtEmail;
     @FXML
+    private TextField txtIdentificacionOficial;
+    @FXML
     private TableView<Cliente> tblClientes;
     @FXML
     private TableColumn<Cliente, Integer> colId;
@@ -85,7 +87,7 @@ public class VCliente {
     @FXML
     private void registrarCliente(ActionEvent event) {
         if (!validarCampos()) return;
-        Cliente cliente = new Cliente(0, txtNombre.getText(), txtApellido.getText(), txtTelefono.getText(), txtEmail.getText());
+        Cliente cliente = new Cliente(0, txtNombre.getText(), txtApellido.getText(), txtTelefono.getText(), txtEmail.getText(), txtIdentificacionOficial.getText());
         if (controlador.registrarCliente(cliente)) {
             mostrarAlerta("Éxito", "Cliente registrado", Alert.AlertType.INFORMATION);
             cargarClientes();
@@ -102,7 +104,7 @@ public class VCliente {
             return;
         }
         if (!validarCampos()) return;
-        Cliente cliente = new Cliente(clienteSeleccionadoId, txtNombre.getText(), txtApellido.getText(), txtTelefono.getText(), txtEmail.getText());
+        Cliente cliente = new Cliente(clienteSeleccionadoId, txtNombre.getText(), txtApellido.getText(), txtTelefono.getText(), txtEmail.getText(), txtIdentificacionOficial.getText());
         if (controlador.actualizarCliente(cliente)) {
             mostrarAlerta("Éxito", "Cliente actualizado", Alert.AlertType.INFORMATION);
             cargarClientes();
@@ -111,6 +113,7 @@ public class VCliente {
             mostrarAlerta("Error", "No se pudo actualizar el cliente", Alert.AlertType.ERROR);
         }
     }
+
     @FXML
     private void eliminarCliente(ActionEvent event) {
         if (clienteSeleccionadoId == -1) {
@@ -135,14 +138,17 @@ public class VCliente {
             txtApellido.setText(cliente.getApellido());
             txtTelefono.setText(cliente.getTelefono());
             txtEmail.setText(cliente.getEmail());
+            txtIdentificacionOficial.setText(cliente.getIdentificacionOficial());
         }
     }
+
     @FXML
     private void limpiarCampos() {
         txtNombre.clear();
         txtApellido.clear();
         txtTelefono.clear();
         txtEmail.clear();
+        txtIdentificacionOficial.clear();
         clienteSeleccionadoId = -1;
     }
 

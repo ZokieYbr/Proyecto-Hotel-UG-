@@ -21,7 +21,8 @@ public class CCliente {
                         rs.getString("nombre"),
                         rs.getString("apellidos"),
                         rs.getString("telefono"),
-                        rs.getString("correo")
+                        rs.getString("correo"),
+                        rs.getString("identificacion")
                 );
                 listaClientes.add(cliente);
             }
@@ -29,16 +30,18 @@ public class CCliente {
         } catch (SQLException e) {
             e.printStackTrace();
         }
+
         return listaClientes;
     }
 
     public boolean registrarCliente(Cliente cliente) {
-        String sql = "INSERT INTO clientes(nombre, apellidos, telefono, correo) VALUES (?, ?, ?, ?)";
+        String sql = "INSERT INTO clientes (nombre, apellidos, telefono, correo, identificacion) VALUES (?, ?, ?, ?, ?)";
         try (Connection conn = Conexion.conectar(); PreparedStatement pstmt = conn.prepareStatement(sql)) {
             pstmt.setString(1, cliente.getNombre());
             pstmt.setString(2, cliente.getApellido());
             pstmt.setString(3, cliente.getTelefono());
             pstmt.setString(4, cliente.getEmail());
+            pstmt.setString(5, cliente.getIdentificacionOficial());
             pstmt.executeUpdate();
             return true;
         } catch (SQLException e) {
@@ -48,13 +51,14 @@ public class CCliente {
     }
 
     public boolean actualizarCliente(Cliente cliente) {
-        String sql = "UPDATE clientes SET nombre=?, apellidos=?, telefono=?, correo=? WHERE id=?";
+        String sql = "UPDATE clientes SET nombre=?, apellidos=?, telefono=?, correo=?, identificacion=? WHERE id=?";
         try (Connection conn = Conexion.conectar(); PreparedStatement pstmt = conn.prepareStatement(sql)) {
             pstmt.setString(1, cliente.getNombre());
             pstmt.setString(2, cliente.getApellido());
             pstmt.setString(3, cliente.getTelefono());
             pstmt.setString(4, cliente.getEmail());
-            pstmt.setInt(5, cliente.getId());
+            pstmt.setString(5, cliente.getIdentificacionOficial());
+            pstmt.setInt(6, cliente.getId());
             pstmt.executeUpdate();
             return true;
         } catch (SQLException e) {
