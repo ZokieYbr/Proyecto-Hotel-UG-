@@ -84,7 +84,7 @@ public class CHabitacion {
             pstmt.setDate(5, fechaSalida);
             ResultSet rs = pstmt.executeQuery();
             if (rs.next()) {
-                return rs.getInt(1) == 0; // Devuelve true si no hay conflictos
+                return rs.getInt(1) == 0;
             }
         } catch (SQLException e) {
             e.printStackTrace();

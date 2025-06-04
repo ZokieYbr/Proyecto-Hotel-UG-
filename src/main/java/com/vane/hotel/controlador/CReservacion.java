@@ -23,7 +23,6 @@ public class CReservacion {
                 try {
                     if (fechaEntradaStr != null && !fechaEntradaStr.isEmpty()) {
                         if (fechaEntradaStr.matches("^\\d+$")) {
-                            // Si es un número (timestamp)
                             fechaEntrada = new java.sql.Date(Long.parseLong(fechaEntradaStr));
                         } else {
                             fechaEntrada = java.sql.Date.valueOf(fechaEntradaStr);
