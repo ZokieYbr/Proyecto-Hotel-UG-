@@ -1,6 +1,7 @@
 package com.vane.hotel.vista;
 
 import com.vane.hotel.controlador.CReservacion;
+import com.vane.hotel.controlador.CHabitacion;
 import com.vane.hotel.modelo.Reservacion;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
@@ -28,6 +29,7 @@ public class VReservacion {
     private Button btnAtras;
 
     private final CReservacion controlador = new CReservacion();
+    private final CHabitacion controladorHabitacion = new CHabitacion();
     private int reservacionSeleccionadaId = -1;
 
     @FXML
@@ -69,15 +71,33 @@ public class VReservacion {
         return true;
     }
 
+    private boolean validarDisponibilidad(int habitacionId, Date fechaEntrada, Date fechaSalida) {
+        java.sql.Date sqlFechaEntrada = new java.sql.Date(fechaEntrada.getTime());
+        java.sql.Date sqlFechaSalida = new java.sql.Date(fechaSalida.getTime());
+        return controladorHabitacion.verificarDisponibilidad(habitacionId, sqlFechaEntrada, sqlFechaSalida);
+    }
+
     @FXML
     private void agregarReservacion() {
         if (!validarCampos()) return;
+        int habitacionId = Integer.parseInt(habitacionIdField.getText());
+        Date fechaEntrada = Date.from(fechaEntradaPicker.getValue().atStartOfDay(ZoneId.systemDefault()).toInstant());
+        Date fechaSalida = Date.from(fechaSalidaPicker.getValue().atStartOfDay(ZoneId.systemDefault()).toInstant());
+
+        java.sql.Date sqlFechaEntrada = new java.sql.Date(fechaEntrada.getTime());
+        java.sql.Date sqlFechaSalida = new java.sql.Date(fechaSalida.getTime());
+
+        if (!validarDisponibilidad(habitacionId, sqlFechaEntrada, sqlFechaSalida)) {
+            mostrarAlerta("Error", "La habitación no está disponible en las fechas seleccionadas.", Alert.AlertType.ERROR);
+            return;
+        }
+
         Reservacion reservacion = new Reservacion(
                 0,
                 Integer.parseInt(clienteIdField.getText()),
-                Integer.parseInt(habitacionIdField.getText()),
-                Date.from(fechaEntradaPicker.getValue().atStartOfDay(ZoneId.systemDefault()).toInstant()),
-                Date.from(fechaSalidaPicker.getValue().atStartOfDay(ZoneId.systemDefault()).toInstant()),
+                habitacionId,
+                fechaEntrada,
+                fechaSalida,
                 estadoCombo.getValue()
         );
         if (controlador.registrarReservacion(reservacion)) {

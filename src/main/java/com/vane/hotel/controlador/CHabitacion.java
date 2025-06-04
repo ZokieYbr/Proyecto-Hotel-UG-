@@ -73,4 +73,23 @@ public class CHabitacion {
             return false;
         }
     }
+
+    public boolean verificarDisponibilidad(int habitacionId, java.sql.Date fechaEntrada, java.sql.Date fechaSalida) {
+        String sql = "SELECT COUNT(*) FROM reservaciones WHERE habitacion_id = ? AND ((fecha_entrada <= ? AND fecha_salida >= ?) OR (fecha_entrada <= ? AND fecha_salida >= ?))";
+        try (Connection conn = Conexion.conectar(); PreparedStatement pstmt = conn.prepareStatement(sql)) {
+            pstmt.setInt(1, habitacionId);
+            pstmt.setDate(2, fechaEntrada);
+            pstmt.setDate(3, fechaEntrada);
+            pstmt.setDate(4, fechaSalida);
+            pstmt.setDate(5, fechaSalida);
+            ResultSet rs = pstmt.executeQuery();
+            if (rs.next()) {
+                return rs.getInt(1) == 0; // Devuelve true si no hay conflictos
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return false;
+    }
 }
+
