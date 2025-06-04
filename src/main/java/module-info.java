@@ -5,6 +5,7 @@ module com.vane.hotel {
     requires org.slf4j;
     requires ch.qos.logback.classic;
     requires ch.qos.logback.core;
+    requires jasperreports;
 
     opens com.vane.hotel.controlador to javafx.fxml;
     exports com.vane.hotel;
