@@ -1,0 +1,119 @@
+<!-- Created with Jaspersoft Studio version 7.0.2.final using JasperReports Library version 7.0.2-31532122640f516c6d17238ae0e41a08113d5ac0  -->
+<jasperReport name="Ingresos" language="java" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="78cf11ac-36e7-4f99-abb8-f1136632403c">
+	<property name="com.jaspersoft.studio.data.sql.tables" value=""/>
+	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="SQLiteConnection"/>
+	<parameter name="id_reservacion" class="java.lang.Integer"/>
+	<query language="SQL"><![CDATA[SELECT 
+    r.id AS id_reserva,
+    c.nombre || ' ' || c.apellidos AS cliente,
+    r.fecha_entrada,
+    r.fecha_salida,
+    h.tipo AS tipo_habitacion,
+    h.precio_noche
+FROM 
+    reservaciones r
+JOIN 
+    clientes c ON r.cliente_id = c.id
+JOIN 
+    habitaciones h ON r.habitacion_id = h.id
+WHERE 
+    r.id = $P{id_reservacion}
+]]></query>
+	<field name="id_reserva" class="java.lang.Object">
+		<property name="com.jaspersoft.studio.field.name" value="id_reserva"/>
+		<property name="com.jaspersoft.studio.field.label" value="id_reserva"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="reservaciones"/>
+	</field>
+	<field name="cliente" class="java.lang.Object">
+		<property name="com.jaspersoft.studio.field.name" value="cliente"/>
+		<property name="com.jaspersoft.studio.field.label" value="cliente"/>
+	</field>
+	<field name="fecha_entrada" class="java.lang.Object">
+		<property name="com.jaspersoft.studio.field.name" value="fecha_entrada"/>
+		<property name="com.jaspersoft.studio.field.label" value="fecha_entrada"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="reservaciones"/>
+	</field>
+	<field name="fecha_salida" class="java.lang.Object">
+		<property name="com.jaspersoft.studio.field.name" value="fecha_salida"/>
+		<property name="com.jaspersoft.studio.field.label" value="fecha_salida"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="reservaciones"/>
+	</field>
+	<field name="tipo_habitacion" class="java.lang.Object">
+		<property name="com.jaspersoft.studio.field.name" value="tipo_habitacion"/>
+		<property name="com.jaspersoft.studio.field.label" value="tipo_habitacion"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="habitaciones"/>
+	</field>
+	<field name="precio_noche" class="java.lang.Double">
+		<property name="com.jaspersoft.studio.field.name" value="precio_noche"/>
+		<property name="com.jaspersoft.studio.field.label" value="precio_noche"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="habitaciones"/>
+	</field>
+	<variable name="numero_noches" class="java.lang.Long">
+		<expression><![CDATA[ (int)(($V{fechaSalidaDate}.getTime() - $V{fechaEntradaDate}.getTime()) / (1000 * 60 * 60 * 24))]]></expression>
+	</variable>
+	<variable name="subtotal_estancia" class="java.lang.Double">
+		<expression><![CDATA[((Number)$F{precio_noche}).doubleValue() * $V{numero_noches}]]></expression>
+	</variable>
+	<variable name="total_con_iva" class="java.lang.Double">
+		<expression><![CDATA[ $V{subtotal_estancia} * 1.16]]></expression>
+	</variable>
+	<variable name="fechaSalidaDate" class="java.util.Date">
+		<expression><![CDATA[ ($F{fecha_salida} instanceof java.util.Date) 
+        ? (java.util.Date)$F{fecha_salida} 
+        : new java.util.Date(((Number)$F{fecha_salida}).longValue())]]></expression>
+	</variable>
+	<variable name="fechaEntradaDate" class="java.util.Date">
+		<expression><![CDATA[($F{fecha_entrada} instanceof java.util.Date) 
+        ? (java.util.Date)$F{fecha_entrada} 
+        : new java.util.Date(((Number)$F{fecha_entrada}).longValue())]]></expression>
+	</variable>
+	<background splitType="Stretch"/>
+	<title height="90" splitType="Stretch">
+		<element kind="staticText" uuid="ec0a0403-4714-4ff4-b526-fb987a4b953d" x="194" y="10" width="166" height="50" fontSize="26.0" bold="true">
+			<text><![CDATA[Hotel Alterno]]></text>
+		</element>
+		<element kind="staticText" uuid="071453c0-e9a2-4e2d-9a1e-f7562494f994" x="120" y="60" width="330" height="30" fontSize="18.0" bold="false">
+			<text><![CDATA[Reporte de ingresos por reservaciones]]></text>
+		</element>
+	</title>
+	<pageHeader height="35" splitType="Stretch">
+		<element kind="staticText" uuid="f4609d61-341b-4bfe-bd1b-46aa8900f19d" x="190" y="10" width="80" height="20">
+			<text><![CDATA[Fecha salida]]></text>
+		</element>
+		<element kind="staticText" uuid="b12a2d27-8e1e-4c9c-a38f-393e2037dfce" x="390" y="10" width="80" height="20">
+			<text><![CDATA[Total + IVA]]></text>
+		</element>
+		<element kind="staticText" uuid="eda7bf98-23af-4b47-87f9-3cafcd1af2b4" x="280" y="10" width="80" height="20">
+			<text><![CDATA[Precio noche]]></text>
+		</element>
+		<element kind="staticText" uuid="d8032c7c-dc29-4258-9df5-be164b8da740" x="0" y="10" width="80" height="20">
+			<text><![CDATA[ID de reserva]]></text>
+		</element>
+		<element kind="staticText" uuid="f938417b-30c1-4560-af0a-beac6f5564f6" x="90" y="10" width="92" height="20">
+			<text><![CDATA[Fecha entrada]]></text>
+		</element>
+	</pageHeader>
+	<columnHeader height="65" splitType="Stretch">
+		<element kind="textField" uuid="53a1ea23-c202-41c4-96f7-8fd8a35aa742" x="0" y="10" width="80" height="30">
+			<expression><![CDATA[$F{id_reserva}]]></expression>
+		</element>
+		<element kind="textField" uuid="db389564-58bf-409f-9d9b-7ff5c0ed866e" x="90" y="10" width="92" height="30">
+			<expression><![CDATA[$F{fecha_entrada}]]></expression>
+		</element>
+		<element kind="textField" uuid="a6e05946-8025-4124-9d8c-2e20c65ede5c" x="190" y="10" width="80" height="30">
+			<expression><![CDATA[$F{fecha_salida}]]></expression>
+		</element>
+		<element kind="textField" uuid="99b27ef2-e737-4906-b3a1-0c6a5c02a11e" x="290" y="10" width="70" height="30">
+			<expression><![CDATA[$F{precio_noche}]]></expression>
+		</element>
+		<element kind="textField" uuid="e0dd7ff5-dbdb-4204-a89f-28b53cd1fdae" x="380" y="10" width="100" height="30">
+			<expression><![CDATA[$V{total_con_iva}]]></expression>
+		</element>
+	</columnHeader>
+	<detail>
+		<band height="125" splitType="Stretch"/>
+	</detail>
+	<columnFooter height="45" splitType="Stretch"/>
+	<pageFooter height="54" splitType="Stretch"/>
+	<summary height="42" splitType="Stretch"/>
+</jasperReport>
