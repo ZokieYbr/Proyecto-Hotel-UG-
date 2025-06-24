@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.chart.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.geometry.*?>
+
+<AnchorPane xmlns:fx="http://javafx.com/fxml"
+            fx:controller="com.vane.hotel.controlador.CEstadisticas"
+            prefWidth="600" prefHeight="500">
+    <children>
+        <VBox spacing="15" alignment="TOP_CENTER" layoutX="20" layoutY="20" prefWidth="560" prefHeight="480">
+            <HBox spacing="10" alignment="CENTER">
+                <Label text="Mes a predecir:" />
+                <ComboBox fx:id="mesCombo" prefWidth="150"/>
+                <Button fx:id="btnCalcular" text="Calcular" onAction="#calcularPrediccion"/>
+            </HBox>
+
+            <LineChart fx:id="lineChart" title="Ocupación histórica y predicción"
+                       prefWidth="550" prefHeight="350">
+                <xAxis>
+                    <CategoryAxis label="Mes" />
+                </xAxis>
+                <yAxis>
+                    <NumberAxis label="Días ocupados" />
+                </yAxis>
+            </LineChart>
+
+            <Label fx:id="lblResultado" text="Selecciona un mes para ver predicción"
+                   style="-fx-font-weight: bold;" />
+
+            <Button text="Cerrar" onAction="#cerrarVentana" style="-fx-background-color: #e57373; -fx-text-fill: white;"/>
+        </VBox>
+    </children>
+</AnchorPane>

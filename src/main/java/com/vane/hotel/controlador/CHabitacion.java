@@ -91,5 +91,20 @@ public class CHabitacion {
         }
         return false;
     }
+
+    public int contarHabitaciones() {
+        String sql = "SELECT COUNT(*) FROM habitaciones";
+        try (Connection conn = Conexion.conectar();
+             Statement stmt = conn.createStatement();
+             ResultSet rs = stmt.executeQuery(sql)) {
+            if (rs.next()) {
+                return rs.getInt(1);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return 0;
+    }
+
 }
 
