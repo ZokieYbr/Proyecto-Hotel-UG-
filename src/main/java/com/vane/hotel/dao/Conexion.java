@@ -10,7 +10,6 @@ public class Conexion {
     private static Connection instancia;
 
     private Conexion() {
-        // Evitar instanciación
     }
 
     public static Connection conectar() {

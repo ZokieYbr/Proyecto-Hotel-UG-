@@ -4,6 +4,7 @@ module com.vane.hotel {
     requires java.sql;
     requires org.slf4j;
     requires jasperreports;
+    requires java.desktop;
 
     opens com.vane.hotel.controlador to javafx.fxml;
     exports com.vane.hotel;

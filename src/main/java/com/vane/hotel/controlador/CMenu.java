@@ -23,6 +23,8 @@ public class CMenu {
     @FXML
     private Button btnPrediccion;
     @FXML
+    private Button btnGenerarReporte;
+    @FXML
     private Text txtTitulo;
 
     @FXML
@@ -61,6 +63,7 @@ public class CMenu {
         btnHabitaciones.setText(i18n.get("boton.habitaciones"));
         btnClientes.setText(i18n.get("boton.clientes"));
         btnReservaciones.setText(i18n.get("boton.reservaciones"));
-        btnPrediccion.setText(i18n.get("boton.prediccion")); // Puedes añadir esta clave al archivo de i18n
+        btnPrediccion.setText(i18n.get("boton.prediccion"));
+        btnGenerarReporte.setText(i18n.get("boton.generarReporte"));
     }
 }

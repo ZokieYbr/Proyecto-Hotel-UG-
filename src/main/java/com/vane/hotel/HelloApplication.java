@@ -6,6 +6,7 @@ import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.stage.Stage;
 import javafx.scene.Parent;
+import javax.swing.*;
 
 public class HelloApplication extends Application {
     @Override
@@ -117,13 +118,6 @@ public class HelloApplication extends Application {
 
                     if (jrxml == null) return;
 
-                    javafx.stage.FileChooser fileChooser = new javafx.stage.FileChooser();
-                    fileChooser.setTitle("Guardar Reporte PDF");
-                    fileChooser.getExtensionFilters().add(new javafx.stage.FileChooser.ExtensionFilter("PDF", "*.pdf"));
-                    java.io.File file = fileChooser.showSaveDialog(stage);
-                    if (file == null) return;
-
-
                     java.io.InputStream input = HelloApplication.class.getResourceAsStream(jrxml);
                     if (input == null) {
                         javafx.scene.control.Alert alert = new javafx.scene.control.Alert(javafx.scene.control.Alert.AlertType.ERROR, "No se encontró la plantilla del reporte: " + jrxml);
@@ -133,9 +127,29 @@ public class HelloApplication extends Application {
                     net.sf.jasperreports.engine.JasperReport jasperReport = net.sf.jasperreports.engine.JasperCompileManager.compileReport(input);
                     java.sql.Connection conn = com.vane.hotel.dao.Conexion.conectar();
                     net.sf.jasperreports.engine.JasperPrint jasperPrint = net.sf.jasperreports.engine.JasperFillManager.fillReport(jasperReport, params, conn);
-                    net.sf.jasperreports.engine.JasperExportManager.exportReportToPdfFile(jasperPrint, file.getAbsolutePath());
-                    javafx.scene.control.Alert alert = new javafx.scene.control.Alert(javafx.scene.control.Alert.AlertType.INFORMATION, "Reporte generado exitosamente.");
-                    alert.showAndWait();
+
+                    // Mostrar el reporte en una ventana emergente antes de guardar
+                    javax.swing.SwingUtilities.invokeLater(() -> {
+                        net.sf.jasperreports.view.JasperViewer viewer = new net.sf.jasperreports.view.JasperViewer(jasperPrint, false);
+                        viewer.setTitle("Vista previa del reporte");
+                        viewer.setVisible(true);
+                    });
+
+                    // Preguntar si desea guardar el PDF
+                    javafx.scene.control.Alert confirmAlert = new javafx.scene.control.Alert(javafx.scene.control.Alert.AlertType.CONFIRMATION, "¿Desea guardar el reporte como PDF?", javafx.scene.control.ButtonType.YES, javafx.scene.control.ButtonType.NO);
+                    confirmAlert.setTitle("Guardar PDF");
+                    java.util.Optional<javafx.scene.control.ButtonType> result = confirmAlert.showAndWait();
+                    if (result.isPresent() && result.get() == javafx.scene.control.ButtonType.YES) {
+                        javafx.stage.FileChooser fileChooser = new javafx.stage.FileChooser();
+                        fileChooser.setTitle("Guardar Reporte PDF");
+                        fileChooser.getExtensionFilters().add(new javafx.stage.FileChooser.ExtensionFilter("PDF", "*.pdf"));
+                        java.io.File file = fileChooser.showSaveDialog(stage);
+                        if (file != null) {
+                            net.sf.jasperreports.engine.JasperExportManager.exportReportToPdfFile(jasperPrint, file.getAbsolutePath());
+                            javafx.scene.control.Alert alert = new javafx.scene.control.Alert(javafx.scene.control.Alert.AlertType.INFORMATION, "Reporte guardado exitosamente.");
+                            alert.showAndWait();
+                        }
+                    }
                 } catch (Exception e) {
                     e.printStackTrace();
                     javafx.scene.control.Alert alert = new javafx.scene.control.Alert(javafx.scene.control.Alert.AlertType.ERROR, "Error al generar el reporte: " + e.getMessage());
