@@ -54,16 +54,13 @@ public class AnalizadorOcupacion {
         return count > 0 ? suma / count : 0.0;
     }
 
-    // Permite parsear fechas en formato yyyy-MM-dd o como timestamp epoch (milisegundos)
     private LocalDate parseFechaFlexible(String valor) {
         if (valor == null) return null;
         try {
-            // Si es numérico, parsear como epoch
             if (valor.matches("\\d+")) {
                 long epoch = Long.parseLong(valor);
                 return java.time.Instant.ofEpochMilli(epoch).atZone(java.time.ZoneId.systemDefault()).toLocalDate();
             } else {
-                // Si es formato fecha
                 return LocalDate.parse(valor);
             }
         } catch (Exception e) {

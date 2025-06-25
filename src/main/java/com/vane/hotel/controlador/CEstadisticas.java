@@ -1,17 +1,14 @@
 package com.vane.hotel.controlador;
 
 import javafx.fxml.FXML;
-import javafx.scene.chart.CategoryAxis;
 import javafx.scene.chart.LineChart;
-import javafx.scene.chart.NumberAxis;
 import javafx.scene.chart.XYChart;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
-
 import java.time.LocalDate;
 import java.time.YearMonth;
 import java.util.*;
-import java.util.stream.Collectors;
+
 
 public class CEstadisticas {
 
@@ -29,11 +26,9 @@ public class CEstadisticas {
 
     @FXML
     public void initialize() {
-        // Preparar gráfico
         lineChart.setAnimated(false);
         lineChart.setLegendVisible(true);
 
-        // Cargar meses futuros al ComboBox (dos años)
         List<String> futuros = new ArrayList<>();
         int añoActual = LocalDate.now().getYear();
         for (int a = 0; a <= 1; a++) {
@@ -44,7 +39,6 @@ public class CEstadisticas {
         mesCombo.getItems().addAll(futuros);
         mesCombo.getSelectionModel().selectFirst();
 
-        // Cargar gráfico con datos históricos
         cargarGraficoHistorico();
     }
 
@@ -72,15 +66,13 @@ public class CEstadisticas {
 
         double ocupacionEstimada = analizador.predecirOcupacion(mesFuturo);
 
-        // Calcular porcentaje de ocupación esperada
-        int totalHabitaciones = controladorHabitacion.contarHabitaciones(); // Debes tener este método
+        int totalHabitaciones = controladorHabitacion.contarHabitaciones();
         YearMonth ym = YearMonth.parse(mesFuturo);
         int diasDelMes = ym.lengthOfMonth();
 
         double porcentaje = (ocupacionEstimada / (totalHabitaciones * diasDelMes)) * 100;
         lblResultado.setText(String.format("Ocupación estimada para %s: %.2f%%", mesFuturo, porcentaje));
 
-        // Agregar la predicción al gráfico
         XYChart.Series<String, Number> seriePred = new XYChart.Series<>();
         seriePred.setName("Predicción");
         seriePred.getData().add(new XYChart.Data<>(mesFuturo, ocupacionEstimada));

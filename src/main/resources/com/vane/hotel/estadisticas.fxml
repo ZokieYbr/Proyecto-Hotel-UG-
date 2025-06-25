@@ -3,7 +3,6 @@
 <?import javafx.scene.chart.*?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
-<?import javafx.geometry.*?>
 
 <AnchorPane xmlns:fx="http://javafx.com/fxml"
             fx:controller="com.vane.hotel.controlador.CEstadisticas"

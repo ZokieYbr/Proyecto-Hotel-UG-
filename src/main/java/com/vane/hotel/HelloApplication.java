@@ -6,7 +6,6 @@ import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.stage.Stage;
 import javafx.scene.Parent;
-import javax.swing.*;
 
 public class HelloApplication extends Application {
     @Override
@@ -64,7 +63,6 @@ public class HelloApplication extends Application {
         if (btnGenerarReporte != null) {
             btnGenerarReporte.setOnAction(event -> {
                 try {
-                    // Diálogo para seleccionar tipo de reporte
                     javafx.scene.control.ChoiceDialog<String> tipoDialog = new javafx.scene.control.ChoiceDialog<>("Ocupación", java.util.Arrays.asList("Ocupación", "Ingresos", "Predicción"));
                     tipoDialog.setTitle("Tipo de Reporte");
                     tipoDialog.setHeaderText("Seleccione el tipo de reporte");
@@ -128,14 +126,12 @@ public class HelloApplication extends Application {
                     java.sql.Connection conn = com.vane.hotel.dao.Conexion.conectar();
                     net.sf.jasperreports.engine.JasperPrint jasperPrint = net.sf.jasperreports.engine.JasperFillManager.fillReport(jasperReport, params, conn);
 
-                    // Mostrar el reporte en una ventana emergente antes de guardar
                     javax.swing.SwingUtilities.invokeLater(() -> {
                         net.sf.jasperreports.view.JasperViewer viewer = new net.sf.jasperreports.view.JasperViewer(jasperPrint, false);
                         viewer.setTitle("Vista previa del reporte");
                         viewer.setVisible(true);
                     });
 
-                    // Preguntar si desea guardar el PDF
                     javafx.scene.control.Alert confirmAlert = new javafx.scene.control.Alert(javafx.scene.control.Alert.AlertType.CONFIRMATION, "¿Desea guardar el reporte como PDF?", javafx.scene.control.ButtonType.YES, javafx.scene.control.ButtonType.NO);
                     confirmAlert.setTitle("Guardar PDF");
                     java.util.Optional<javafx.scene.control.ButtonType> result = confirmAlert.showAndWait();

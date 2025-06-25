@@ -1,22 +1,22 @@
 <!-- Created with Jaspersoft Studio version 7.0.2.final using JasperReports Library version 7.0.2-31532122640f516c6d17238ae0e41a08113d5ac0  -->
-<jasperReport name="Ingresos" language="java" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="78cf11ac-36e7-4f99-abb8-f1136632403c">
+<jasperReport name="Ingresos" language="java" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20">
 	<property name="com.jaspersoft.studio.data.sql.tables" value=""/>
 	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="SQLiteConnection"/>
 	<parameter name="id_reservacion" class="java.lang.Integer"/>
-	<query language="SQL"><![CDATA[SELECT 
+	<query language="SQL"><![CDATA[SELECT
     r.id AS id_reserva,
     c.nombre || ' ' || c.apellidos AS cliente,
     r.fecha_entrada,
     r.fecha_salida,
     h.tipo AS tipo_habitacion,
     h.precio_noche
-FROM 
+FROM
     reservaciones r
-JOIN 
+JOIN
     clientes c ON r.cliente_id = c.id
-JOIN 
+JOIN
     habitaciones h ON r.habitacion_id = h.id
-WHERE 
+WHERE
     r.id = $P{id_reservacion}
 ]]></query>
 	<field name="id_reserva" class="java.lang.Object">
@@ -58,13 +58,13 @@ WHERE
 		<expression><![CDATA[ $V{subtotal_estancia} * 1.16]]></expression>
 	</variable>
 	<variable name="fechaSalidaDate" class="java.util.Date">
-		<expression><![CDATA[ ($F{fecha_salida} instanceof java.util.Date) 
-        ? (java.util.Date)$F{fecha_salida} 
+		<expression><![CDATA[ ($F{fecha_salida} instanceof java.util.Date)
+        ? (java.util.Date)$F{fecha_salida}
         : new java.util.Date(((Number)$F{fecha_salida}).longValue())]]></expression>
 	</variable>
 	<variable name="fechaEntradaDate" class="java.util.Date">
-		<expression><![CDATA[($F{fecha_entrada} instanceof java.util.Date) 
-        ? (java.util.Date)$F{fecha_entrada} 
+		<expression><![CDATA[($F{fecha_entrada} instanceof java.util.Date)
+        ? (java.util.Date)$F{fecha_entrada}
         : new java.util.Date(((Number)$F{fecha_entrada}).longValue())]]></expression>
 	</variable>
 	<background splitType="Stretch"/>
