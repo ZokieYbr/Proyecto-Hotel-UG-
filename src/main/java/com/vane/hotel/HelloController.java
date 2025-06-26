@@ -1,6 +1,5 @@
 package com.vane.hotel;
 
-import com.vane.hotel.modelo.ReporteIngresos;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 

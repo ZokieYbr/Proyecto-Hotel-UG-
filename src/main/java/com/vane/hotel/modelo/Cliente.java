@@ -1,7 +1,6 @@
 package com.vane.hotel.modelo;
 
 public class Cliente {
-
     private int id;
     private String nombre;
     private String apellido;
@@ -60,10 +59,6 @@ public class Cliente {
 
     public String getIdentificacionOficial() {
         return identificacionOficial;
-    }
-
-    public void setIdentificacionOficial(String identificacionOficial) {
-        this.identificacionOficial = identificacionOficial;
     }
 
 }

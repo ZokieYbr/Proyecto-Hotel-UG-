@@ -12,18 +12,15 @@ import java.util.*;
 
 public class CEstadisticas {
 
-    @FXML
-    private ComboBox<String> mesCombo;
-
-    @FXML
-    private LineChart<String, Number> lineChart;
-
-    @FXML
-    private Label lblResultado;
-
     private final AnalizadorOcupacion analizador = new AnalizadorOcupacion();
     private final CHabitacion controladorHabitacion = new CHabitacion();
 
+    @FXML
+    private ComboBox<String> mesCombo;
+    @FXML
+    private LineChart<String, Number> lineChart;
+    @FXML
+    private Label lblResultado;
     @FXML
     public void initialize() {
         lineChart.setAnimated(false);

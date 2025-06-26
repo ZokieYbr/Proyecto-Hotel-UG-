@@ -18,7 +18,6 @@ public class Conexion {
                 String ruta = Config.get("ruta_db");
                 String url = "jdbc:sqlite:" + ruta;
                 instancia = DriverManager.getConnection(url);
-                System.out.println("Conexión creada.");
             }
         } catch (SQLException e) {
             System.out.println("Error al conectar: " + e.getMessage());

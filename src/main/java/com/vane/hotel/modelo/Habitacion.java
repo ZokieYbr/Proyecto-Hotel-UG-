@@ -7,6 +7,14 @@ public class Habitacion {
     double precio_noche;
     String estado;
 
+    public Habitacion(int id, int numero, String tipo, double precio_noche, String estado) {
+        this.id = id;
+        this.numero = numero;
+        this.tipo = tipo;
+        this.precio_noche = precio_noche;
+        this.estado = estado;
+    }
+
     public int getId() {
         return id;
     }
@@ -46,16 +54,4 @@ public class Habitacion {
     public void setEstado(String estado) {
         this.estado = estado;
     }
-
-    public Habitacion(int id, int numero, String tipo, double precio_noche, String estado) {
-        this.id = id;
-        this.numero = numero;
-        this.tipo = tipo;
-        this.precio_noche = precio_noche;
-        this.estado = estado;
-    }
-
-
-
-
 }

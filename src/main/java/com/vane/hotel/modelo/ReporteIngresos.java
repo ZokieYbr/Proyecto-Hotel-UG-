@@ -3,7 +3,6 @@ package com.vane.hotel.modelo;
 import net.sf.jasperreports.engine.*;
 import net.sf.jasperreports.view.JasperViewer;
 import com.vane.hotel.dao.Conexion;
-
 import java.io.InputStream;
 import java.sql.Connection;
 import java.util.HashMap;

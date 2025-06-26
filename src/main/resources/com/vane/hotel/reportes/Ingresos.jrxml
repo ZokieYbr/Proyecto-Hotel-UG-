@@ -27,7 +27,6 @@
         ]]>
     </queryString>
 
-    <!-- Fields -->
     <field name="id_reserva" class="java.lang.Object"/>
     <field name="cliente" class="java.lang.Object"/>
     <field name="fecha_entrada" class="java.lang.String"/>

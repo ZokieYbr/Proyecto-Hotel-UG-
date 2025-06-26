@@ -2,7 +2,6 @@ package com.vane.hotel.controlador;
 
 import com.vane.hotel.Config;
 import com.vane.hotel.dao.Conexion;
-
 import java.sql.*;
 import java.time.LocalDate;
 import java.util.*;

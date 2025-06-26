@@ -2,7 +2,6 @@ package com.vane.hotel.modelo;
 
 import net.sf.jasperreports.engine.*;
 import net.sf.jasperreports.view.JasperViewer;
-
 import java.io.InputStream;
 import java.util.HashMap;
 import java.util.List;

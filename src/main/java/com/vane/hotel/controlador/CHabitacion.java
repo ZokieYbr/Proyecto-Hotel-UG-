@@ -4,7 +4,6 @@ import com.vane.hotel.dao.Conexion;
 import com.vane.hotel.modelo.Habitacion;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-
 import java.sql.*;
 
 public class CHabitacion {
