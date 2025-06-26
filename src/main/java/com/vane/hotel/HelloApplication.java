@@ -69,7 +69,7 @@ public class HelloApplication extends Application {
                 try {
                     javafx.scene.control.ChoiceDialog<String> tipoDialog = new javafx.scene.control.ChoiceDialog<>("Ingresos", java.util.Arrays.asList("Ingresos", "Predicción"));
                     tipoDialog.setTitle("Tipo de Reporte");
-                    tipoDialog.setHeaderText("Seleccione el tipo de reporte");
+                    tipoDialog.setHeaderText("Selecciona el tipo de reporte");
                     java.util.Optional<String> tipoResult = tipoDialog.showAndWait();
                     if (!tipoResult.isPresent()) return;
                     String tipoReporte = tipoResult.get();
