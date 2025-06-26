@@ -82,7 +82,7 @@ public class HelloApplication extends Application {
                         if (!idResult.isPresent() || idResult.get().isEmpty()) return;
                         int idReservacion = Integer.parseInt(idResult.get());
                         params.put("id_reservacion", idReservacion);
-                        jrxml = "com/vane/hotel/reportes/Ingresos.jrxml";
+                        jrxml = "/com/vane/hotel/reportes/Ingresos.jrxml";
                     } else {
 
                         javafx.stage.Stage dialogStage = new javafx.stage.Stage();
