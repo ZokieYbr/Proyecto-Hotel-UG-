@@ -67,7 +67,7 @@ public class HelloApplication extends Application {
         if (btnGenerarReporte != null) {
             btnGenerarReporte.setOnAction(event -> {
                 try {
-                    javafx.scene.control.ChoiceDialog<String> tipoDialog = new javafx.scene.control.ChoiceDialog<>("Ocupación", java.util.Arrays.asList("Ocupación", "Ingresos", "Predicción"));
+                    javafx.scene.control.ChoiceDialog<String> tipoDialog = new javafx.scene.control.ChoiceDialog<>("Ingresos", java.util.Arrays.asList("Ingresos", "Predicción"));
                     tipoDialog.setTitle("Tipo de Reporte");
                     tipoDialog.setHeaderText("Seleccione el tipo de reporte");
                     java.util.Optional<String> tipoResult = tipoDialog.showAndWait();
@@ -78,7 +78,6 @@ public class HelloApplication extends Application {
                     java.util.Map<String, Object> params = new java.util.HashMap<>();
 
                     if ("Ingresos".equals(tipoReporte)) {
-
                         javafx.scene.control.TextInputDialog idDialog = new javafx.scene.control.TextInputDialog();
                         idDialog.setTitle("ID de Reservación");
                         idDialog.setHeaderText("Ingrese el ID de la reservación");
@@ -87,35 +86,8 @@ public class HelloApplication extends Application {
                         int idReservacion = Integer.parseInt(idResult.get());
                         params.put("id_reservacion", idReservacion);
                         jrxml = "/com/vane/hotel/reportes/Ingresos.jrxml";
-                    } else {
-
-                        javafx.stage.Stage dialogStage = new javafx.stage.Stage();
-                        javafx.scene.layout.GridPane grid = new javafx.scene.layout.GridPane();
-                        grid.setHgap(10); grid.setVgap(10);
-                        javafx.scene.control.DatePicker dpInicio = new javafx.scene.control.DatePicker();
-                        javafx.scene.control.DatePicker dpFin = new javafx.scene.control.DatePicker();
-                        grid.add(new javafx.scene.control.Label("Fecha inicio:"), 0, 0);
-                        grid.add(dpInicio, 1, 0);
-                        grid.add(new javafx.scene.control.Label("Fecha fin:"), 0, 1);
-                        grid.add(dpFin, 1, 1);
-                        javafx.scene.control.Button btnAceptar = new javafx.scene.control.Button("Aceptar");
-                        grid.add(btnAceptar, 1, 2);
-                        javafx.scene.Scene scene = new javafx.scene.Scene(grid, 300, 150);
-                        dialogStage.setScene(scene);
-                        dialogStage.setTitle("Seleccionar Fechas");
-                        final boolean[] aceptado = {false};
-                        btnAceptar.setOnAction(ev -> { aceptado[0] = true; dialogStage.close(); });
-                        dialogStage.showAndWait();
-                        if (!aceptado[0] || dpInicio.getValue() == null || dpFin.getValue() == null) return;
-                        java.time.LocalDate fechaInicio = dpInicio.getValue();
-                        java.time.LocalDate fechaFin = dpFin.getValue();
-                        params.put("fecha_inicio", java.sql.Date.valueOf(fechaInicio));
-                        params.put("fecha_fin", java.sql.Date.valueOf(fechaFin));
-                        if ("Ocupación".equals(tipoReporte)) {
-                            jrxml = "/com/vane/hotel/reportes/ocupacion.jrxml";
-                        } else if ("Predicción".equals(tipoReporte)) {
-                            jrxml = "/com/vane/hotel/reportes/PrediccionOcupacion.jrxml";
-                        }
+                    } else if ("Predicción".equals(tipoReporte)) {
+                        jrxml = "/com/vane/hotel/reportes/PrediccionOcupacion.jrxml";
                     }
 
                     if (jrxml == null) return;
