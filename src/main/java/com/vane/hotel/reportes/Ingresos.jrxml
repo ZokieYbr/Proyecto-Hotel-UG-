@@ -1,0 +1,142 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Created with Jaspersoft Studio version 7.0.2.final -->
+<jasperReport name="Ingresos" language="java" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20">
+    <parameter name="id_reservacion" class="java.lang.Integer"/>
+    <queryString>
+        <![CDATA[
+        SELECT
+            r.id AS id_reserva,
+            c.nombre || ' ' || c.apellidos AS cliente,
+            r.fecha_entrada,
+            r.fecha_salida,
+            h.tipo AS tipo_habitacion,
+            h.precio_noche
+        FROM
+            reservaciones r
+        JOIN
+            clientes c ON r.cliente_id = c.id
+        JOIN
+            habitaciones h ON r.habitacion_id = h.id
+        WHERE
+            r.id = $P{id_reservacion}
+        ]]>
+    </queryString>
+    <field name="id_reserva" class="java.lang.Object"/>
+    <field name="cliente" class="java.lang.Object"/>
+    <field name="fecha_entrada" class="java.lang.Object"/>
+    <field name="fecha_salida" class="java.lang.Object"/>
+    <field name="tipo_habitacion" class="java.lang.Object"/>
+    <field name="precio_noche" class="java.lang.Double"/>
+
+    <variable name="fechaEntradaDate" class="java.util.Date">
+        <expression><![CDATA[
+            ($F{fecha_entrada} instanceof java.util.Date)
+                ? (java.util.Date)$F{fecha_entrada}
+                : new java.util.Date(((Number)$F{fecha_entrada}).longValue())
+        ]]></expression>
+    </variable>
+    <variable name="fechaSalidaDate" class="java.util.Date">
+        <expression><![CDATA[
+            ($F{fecha_salida} instanceof java.util.Date)
+                ? (java.util.Date)$F{fecha_salida}
+                : new java.util.Date(((Number)$F{fecha_salida}).longValue())
+        ]]></expression>
+    </variable>
+    <variable name="numero_noches" class="java.lang.Integer">
+        <expression><![CDATA[
+            (int)(($V{fechaSalidaDate}.getTime() - $V{fechaEntradaDate}.getTime()) / (1000 * 60 * 60 * 24))
+        ]]></expression>
+    </variable>
+    <variable name="subtotal_estancia" class="java.lang.Double">
+        <expression><![CDATA[
+            ((Number)$F{precio_noche}).doubleValue() * $V{numero_noches}
+        ]]></expression>
+    </variable>
+    <variable name="total_con_iva" class="java.lang.Double">
+        <expression><![CDATA[
+            $V{subtotal_estancia} * 1.16
+        ]]></expression>
+    </variable>
+
+    <background>
+        <band splitType="Stretch"/>
+    </background>
+    <title>
+        <band height="90" splitType="Stretch">
+            <staticText>
+                <reportElement x="194" y="10" width="166" height="50" uuid="title1"/>
+                <textElement textAlignment="Center">
+                    <font size="26" isBold="true"/>
+                </textElement>
+                <text><![CDATA[Hotel Alterno]]></text>
+            </staticText>
+            <staticText>
+                <reportElement x="120" y="60" width="330" height="30" uuid="title2"/>
+                <textElement textAlignment="Center">
+                    <font size="18"/>
+                </textElement>
+                <text><![CDATA[Reporte de ingresos por reservaciones]]></text>
+            </staticText>
+        </band>
+    </title>
+    <pageHeader>
+        <band height="35" splitType="Stretch">
+            <staticText>
+                <reportElement x="0" y="10" width="80" height="20" uuid="ph1"/>
+                <text><![CDATA[ID de reserva]]></text>
+            </staticText>
+            <staticText>
+                <reportElement x="90" y="10" width="92" height="20" uuid="ph2"/>
+                <text><![CDATA[Fecha entrada]]></text>
+            </staticText>
+            <staticText>
+                <reportElement x="190" y="10" width="80" height="20" uuid="ph3"/>
+                <text><![CDATA[Fecha salida]]></text>
+            </staticText>
+            <staticText>
+                <reportElement x="280" y="10" width="80" height="20" uuid="ph4"/>
+                <text><![CDATA[Precio noche]]></text>
+            </staticText>
+            <staticText>
+                <reportElement x="390" y="10" width="80" height="20" uuid="ph5"/>
+                <text><![CDATA[Total + IVA]]></text>
+            </staticText>
+        </band>
+    </pageHeader>
+    <columnHeader>
+        <band height="65" splitType="Stretch">
+            <textField>
+                <reportElement x="0" y="10" width="80" height="30" uuid="ch1"/>
+                <textFieldExpression><![CDATA[$F{id_reserva}]]></textFieldExpression>
+            </textField>
+            <textField>
+                <reportElement x="90" y="10" width="92" height="30" uuid="ch2"/>
+                <textFieldExpression><![CDATA[$F{fecha_entrada}]]></textFieldExpression>
+            </textField>
+            <textField>
+                <reportElement x="190" y="10" width="80" height="30" uuid="ch3"/>
+                <textFieldExpression><![CDATA[$F{fecha_salida}]]></textFieldExpression>
+            </textField>
+            <textField>
+                <reportElement x="280" y="10" width="80" height="30" uuid="ch4"/>
+                <textFieldExpression><![CDATA[$F{precio_noche}]]></textFieldExpression>
+            </textField>
+            <textField>
+                <reportElement x="390" y="10" width="100" height="30" uuid="ch5"/>
+                <textFieldExpression><![CDATA[$V{total_con_iva}]]></textFieldExpression>
+            </textField>
+        </band>
+    </columnHeader>
+    <detail>
+        <band height="20" splitType="Stretch"/>
+    </detail>
+    <columnFooter>
+        <band height="45" splitType="Stretch"/>
+    </columnFooter>
+    <pageFooter>
+        <band height="54" splitType="Stretch"/>
+    </pageFooter>
+    <summary>
+        <band height="42" splitType="Stretch"/>
+    </summary>
+</jasperReport>

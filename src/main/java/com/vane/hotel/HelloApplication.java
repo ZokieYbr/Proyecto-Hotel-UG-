@@ -82,7 +82,7 @@ public class HelloApplication extends Application {
                         if (!idResult.isPresent() || idResult.get().isEmpty()) return;
                         int idReservacion = Integer.parseInt(idResult.get());
                         params.put("id_reservacion", idReservacion);
-                        jrxml = "/com/vane/hotel/reportes/Ingresos.jrxml";
+                        jrxml = "com/vane/hotel/reportes/Ingresos.jrxml";
                     } else {
 
                         javafx.stage.Stage dialogStage = new javafx.stage.Stage();
@@ -110,7 +110,7 @@ public class HelloApplication extends Application {
                         if ("Ocupación".equals(tipoReporte)) {
                             jrxml = "/com/vane/hotel/reportes/ocupacion.jrxml";
                         } else if ("Predicción".equals(tipoReporte)) {
-                            jrxml = "/com/vane/hotel/reportes/prediccion.jrxml";
+                            jrxml = "/com/vane/hotel/reportes/PrediccionOcupacion.jrxml";
                         }
                     }
 

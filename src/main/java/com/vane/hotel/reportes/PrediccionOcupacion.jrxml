@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Created with Jaspersoft Studio -->
+<jasperReport name="PrediccionOcupacion" language="java" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20">
+    <parameter name="meses" class="java.util.List"/>
+    <parameter name="ocupacion_real" class="java.util.List"/>
+    <parameter name="ocupacion_predicha" class="java.util.List"/>
+    <title>
+        <band height="80">
+            <staticText>
+                <reportElement x="140" y="10" width="300" height="30" uuid="t1"/>
+                <textElement textAlignment="Center">
+                    <font size="22" isBold="true"/>
+                </textElement>
+                <text><![CDATA[Predicción de Ocupación Hotel Alterno]]></text>
+            </staticText>
+            <staticText>
+                <reportElement x="120" y="45" width="350" height="25" uuid="t2"/>
+                <textElement textAlignment="Center"/>
+                <text><![CDATA[Comparativa histórica y pronóstico de ocupación por mes]]></text>
+            </staticText>
+        </band>
+    </title>
+    <summary>
+        <band height="300">
+            <barChart>
+                <chart title="Ocupación Hotelaria" uuid="bc1">
+                    <chartTitleExpression><![CDATA["Histórico vs Predicción de Ocupación (%)"]]></chartTitleExpression>
+                </chart>
+                <categoryDataset>
+                    <dataset>
+                        <datasetRun subDataset="dataset1"/>
+                    </dataset>
+                </categoryDataset>
+                <barPlot>
+                    <seriesColor seriesOrder="0" color="#4472C4"/>
+                    <seriesColor seriesOrder="1" color="#ED7D31"/>
+                </barPlot>
+            </barChart>
+        </band>
+    </summary>
+    <subDataset name="dataset1">
+        <field name="mes" class="java.lang.String"/>
+        <field name="real" class="java.lang.Double"/>
+        <field name="predicha" class="java.lang.Double"/>
+        <queryString>
+            <![CDATA[]]>
+        </queryString>
+    </subDataset>
+    <scriptlet name="datasetScriptlet" class="net.sf.jasperreports.engine.JRDefaultScriptlet"/>
+    <datasetRun subDataset="dataset1">
+        <dataSourceExpression><![CDATA[
+            new net.sf.jasperreports.engine.data.JRBeanCollectionDataSource(
+                $P{meses}.size() == $P{ocupacion_real}.size() && $P{meses}.size() == $P{ocupacion_predicha}.size() ?
+                java.util.stream.IntStream.range(0, $P{meses}.size())
+                    .mapToObj(i -> {
+                        java.util.HashMap<String, Object> map = new java.util.HashMap<>();
+                        map.put("mes", $P{meses}.get(i));
+                        map.put("real", $P{ocupacion_real}.get(i));
+                        map.put("predicha", $P{ocupacion_predicha}.get(i));
+                        return map;
+                    })
+                    .collect(java.util.stream.Collectors.toList())
+                : new java.util.ArrayList<>()
+            )
+        ]]></dataSourceExpression>
+    </datasetRun>
+</jasperReport>
