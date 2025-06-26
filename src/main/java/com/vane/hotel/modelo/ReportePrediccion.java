@@ -27,7 +27,7 @@ public class ReportePrediccion {
 
         } catch (Exception e) {
             e.printStackTrace();
-            javax.swing.JOptionPane.showMessageDialog(null, "Error al generar el reporte de predicción:\n" + e.getMessage());
+            javax.swing.JOptionPane.showMessageDialog(null, "Error al generar el reporte de predicción :(\n" + e.getMessage());
         }
     }
 

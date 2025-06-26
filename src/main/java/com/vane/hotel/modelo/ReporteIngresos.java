@@ -28,7 +28,7 @@ public class ReporteIngresos {
 
         } catch (Exception e) {
             e.printStackTrace();
-            javax.swing.JOptionPane.showMessageDialog(null, "Error al generar el reporte de ingresos:\n" + e.getMessage());
+            javax.swing.JOptionPane.showMessageDialog(null, "Error al generar el reporte de ingresos:\n :(" + e.getMessage());
         }
     }
 

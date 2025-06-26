@@ -151,7 +151,7 @@ public class HelloApplication extends Application {
                         viewer.setVisible(true);
                     });
 
-                    javafx.scene.control.Alert confirmAlert = new javafx.scene.control.Alert(javafx.scene.control.Alert.AlertType.CONFIRMATION, "¿Desea guardar el reporte como PDF?", javafx.scene.control.ButtonType.YES, javafx.scene.control.ButtonType.NO);
+                    javafx.scene.control.Alert confirmAlert = new javafx.scene.control.Alert(javafx.scene.control.Alert.AlertType.CONFIRMATION, "¿Desea guardar el reporte como PDF? :)", javafx.scene.control.ButtonType.YES, javafx.scene.control.ButtonType.NO);
                     confirmAlert.setTitle("Guardar PDF");
                     java.util.Optional<javafx.scene.control.ButtonType> result = confirmAlert.showAndWait();
                     if (result.isPresent() && result.get() == javafx.scene.control.ButtonType.YES) {
@@ -161,7 +161,7 @@ public class HelloApplication extends Application {
                         java.io.File file = fileChooser.showSaveDialog(stage);
                         if (file != null) {
                             net.sf.jasperreports.engine.JasperExportManager.exportReportToPdfFile(jasperPrint, file.getAbsolutePath());
-                            javafx.scene.control.Alert alert = new javafx.scene.control.Alert(javafx.scene.control.Alert.AlertType.INFORMATION, "Reporte guardado exitosamente.");
+                            javafx.scene.control.Alert alert = new javafx.scene.control.Alert(javafx.scene.control.Alert.AlertType.INFORMATION, "Reporte guardado.");
                             alert.showAndWait();
                         }
                     }

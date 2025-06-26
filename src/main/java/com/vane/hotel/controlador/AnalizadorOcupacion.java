@@ -49,7 +49,6 @@ public class AnalizadorOcupacion {
                 count++;
             }
         }
-
         return count > 0 ? suma / count : 0.0;
     }
 
@@ -63,7 +62,7 @@ public class AnalizadorOcupacion {
                 return LocalDate.parse(valor);
             }
         } catch (Exception e) {
-            throw new RuntimeException("No se pudo parsear la fecha: " + valor, e);
+            throw new RuntimeException("No se pudo parsear la fecha " + valor, e);
         }
     }
 }

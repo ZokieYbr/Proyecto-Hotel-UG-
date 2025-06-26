@@ -8,6 +8,7 @@ public class OcupacionMesDTO {
     public OcupacionMesDTO() {
     }
 
+
     public OcupacionMesDTO(String mes, Double ocupacion_real, Double ocupacion_predicha) {
         this.mes = mes;
         this.ocupacion_real = ocupacion_real;
