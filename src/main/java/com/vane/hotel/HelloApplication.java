@@ -6,6 +6,10 @@ import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.stage.Stage;
 import javafx.scene.Parent;
+import com.vane.hotel.controlador.AnalizadorOcupacion;
+import com.vane.hotel.controlador.OcupacionMesDTO;
+import net.sf.jasperreports.engine.*;
+import net.sf.jasperreports.engine.data.JRBeanCollectionDataSource;
 
 public class HelloApplication extends Application {
     @Override
@@ -123,8 +127,23 @@ public class HelloApplication extends Application {
                         return;
                     }
                     net.sf.jasperreports.engine.JasperReport jasperReport = net.sf.jasperreports.engine.JasperCompileManager.compileReport(input);
-                    java.sql.Connection conn = com.vane.hotel.dao.Conexion.conectar();
-                    net.sf.jasperreports.engine.JasperPrint jasperPrint = net.sf.jasperreports.engine.JasperFillManager.fillReport(jasperReport, params, conn);
+                    net.sf.jasperreports.engine.JasperPrint jasperPrint;
+                    if ("Predicción".equals(tipoReporte)) {
+                        AnalizadorOcupacion analizador = new AnalizadorOcupacion();
+                        java.util.Map<String, Double> ocupacionReal = analizador.calcularOcupacionHistorica();
+                        java.util.List<OcupacionMesDTO> lista = new java.util.ArrayList<>();
+                        for (java.util.Map.Entry<String, Double> entry : ocupacionReal.entrySet()) {
+                            String mes = entry.getKey();
+                            Double real = entry.getValue();
+                            Double predicha = analizador.predecirOcupacion(mes);
+                            lista.add(new OcupacionMesDTO(mes, real, predicha));
+                        }
+                        JRBeanCollectionDataSource ds = new JRBeanCollectionDataSource(lista);
+                        jasperPrint = JasperFillManager.fillReport(jasperReport, params, ds);
+                    } else {
+                        java.sql.Connection conn = com.vane.hotel.dao.Conexion.conectar();
+                        jasperPrint = JasperFillManager.fillReport(jasperReport, params, conn);
+                    }
 
                     javax.swing.SwingUtilities.invokeLater(() -> {
                         net.sf.jasperreports.view.JasperViewer viewer = new net.sf.jasperreports.view.JasperViewer(jasperPrint, false);
